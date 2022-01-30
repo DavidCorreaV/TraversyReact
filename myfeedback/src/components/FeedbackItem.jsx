@@ -23,6 +23,6 @@ FeedbackItem.defaultProps = {
 FeedbackItem.propTypes = {
   rating: PropTypes.number,
   text: PropTypes.string,
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 export default FeedbackItem;
