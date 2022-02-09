@@ -51,6 +51,7 @@ const FeedbackForm = () => {
         addFeedback(newFeedback);
       }
       setText("");
+      setBtnDisabled(true);
     }
   };
 
