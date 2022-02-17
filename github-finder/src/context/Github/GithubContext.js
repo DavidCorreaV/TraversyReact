@@ -6,6 +6,7 @@ const GITHUB_URL = "https://api.github.com";
 
 export const GithubProvider = ({ children }) => {
   const initialState = {
+    user: {},
     users: [],
     loading: false,
   };
@@ -22,6 +23,19 @@ export const GithubProvider = ({ children }) => {
 
     dispatch({ type: "GET_USERS", payload: items });
   };
+  const getUser = async (login) => {
+    setLoading();
+
+    const response = await fetch(`${GITHUB_URL}/users/${login}`);
+
+    if (response.status === 404) {
+      window.location = "/notfound";
+    } else {
+      const data = await response.json();
+
+      dispatch({ type: "GET_USER", payload: data });
+    }
+  };
 
   const clearUsers = async () => {
     dispatch({ type: "CLEAR_USERS" });
@@ -29,13 +43,15 @@ export const GithubProvider = ({ children }) => {
   return (
     <GithubContext.Provider
       value={{
+        user: state.user,
         users: state.users,
         loading: state.loading,
+        getUser,
         searchUsers,
         clearUsers,
       }}
     >
-      {children}{" "}
+      {children}
     </GithubContext.Provider>
   );
 };
