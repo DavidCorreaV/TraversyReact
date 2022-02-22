@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import Spinner from "../components/layout/Spinner";
 import RepoList from "../components/repos/RepoList"
-import { getUser, getRepos } from "../context/Github/GithubActions";
+import { getUserAndRepos } from "../context/Github/GithubActions";
 
 const User = () => {
   const {  user, loading, repos, dispatch } = useContext(GithubContext);
@@ -18,10 +18,8 @@ const User = () => {
   useEffect(() => { const getUserData = async ()=>{
 
     dispatch({type: "SET_LOADING"})
-    const userData = await getUser(params.login);
-    dispatch({type : 'GET_USER', payload : userData})
-    const repoData = await getRepos(params.login)
-    dispatch({type: 'GET_REPOS', payload: repoData})
+    const userData = await getUserAndRepos(params.login);
+    dispatch({type : 'GET_USER_AND_REPOS', payload : userData})
 
   }
 
