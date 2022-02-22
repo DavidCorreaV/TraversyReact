@@ -40,7 +40,8 @@ export const GithubProvider = ({ children }) => {
     const getRepos = async(user) => {
         setLoading();
 
-        const response = await fetch(`${GITHUB_URL}/users/${user}/repos`);
+        const params = new URLSearchParams({ sort: 'created', per_page: 3 });
+        const response = await fetch(`${GITHUB_URL}/users/${user}/repos?${params}`);
 
 
         const repos = await response.json();

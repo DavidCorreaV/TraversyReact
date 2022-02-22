@@ -9,14 +9,14 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import Spinner from "../components/layout/Spinner";
-import Repos from "../components/repos/RepoList"
+import RepoList from "../components/repos/RepoList"
 
 const User = () => {
-  const { getUser, user, loading,getRepos, repos } = useContext(GithubContext);
+  const { getUser, user, loading, getRepos, repos } = useContext(GithubContext);
   const params = useParams();
   useEffect(() => {
     getUser(params.login);
-//    getRepos(user.login);
+  getRepos(user.login);
   }, []);
 
   const {
@@ -161,7 +161,7 @@ const User = () => {
               </div>
             </div>
         </div>
-          <Repos repos={repos} />
+          <RepoList repos={repos} />
       </div>
     </>
   );
