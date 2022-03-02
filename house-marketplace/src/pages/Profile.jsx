@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { updateDoc, doc } from "firebase/firestore";
 import { getAuth, updateProfile } from "firebase/auth";
