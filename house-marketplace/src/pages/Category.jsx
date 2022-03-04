@@ -45,7 +45,7 @@ const Category = () => {
       }
     };
     fetchListings();
-  });
+  }, []);
   return (
     <div className="category">
       <header>
