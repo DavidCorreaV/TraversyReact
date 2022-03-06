@@ -98,12 +98,8 @@ function Bg() {
   ];
 
   const randomizeAll = () => {
-    setColor(
-      colorArray[Math.floor(Math.floor(Math.random() * colorArray.length))]
-    );
-    setText(
-      quotesPool[Math.floor(Math.floor(Math.random() * quotesPool.length))]
-    );
+    setColor(colorArray[Math.floor(Math.random() * colorArray.length)]);
+    setText(quotesPool[Math.floor(Math.random() * quotesPool.length)]);
   };
 
   const [color, setColor] = useState("red");
