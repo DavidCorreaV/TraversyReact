@@ -1,11 +1,13 @@
-import CustomHookExample2 from "./components/CustomHookExample2";
+import Bg from "./components/Bg";
 
 function App() {
-  return (
-    <div className="container mt-5">
-      <CustomHookExample2 />
-    </div>
-  );
+    return ( <
+        div className = "container mt-5" >
+        <
+        Bg / >
+        <
+        /div>
+    );
 }
 
 export default App;

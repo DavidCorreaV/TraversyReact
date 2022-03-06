@@ -9,21 +9,20 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import Spinner from "../components/layout/Spinner";
-import RepoList from "../components/repos/RepoList"
+import RepoList from "../components/repos/RepoList";
 import { getUserAndRepos } from "../context/Github/GithubActions";
 
 const User = () => {
-  const {  user, loading, repos, dispatch } = useContext(GithubContext);
+  const { user, loading, repos, dispatch } = useContext(GithubContext);
   const params = useParams();
-  useEffect(() => { const getUserData = async ()=>{
+  useEffect(() => {
+    const getUserData = async () => {
+      dispatch({ type: "SET_LOADING" });
+      const userData = await getUserAndRepos(params.login);
+      dispatch({ type: "GET_USER_AND_REPOS", payload: userData });
+    };
 
-    dispatch({type: "SET_LOADING"})
-    const userData = await getUserAndRepos(params.login);
-    dispatch({type : 'GET_USER_AND_REPOS', payload : userData})
-
-  }
-
-  getUserData()
+    getUserData();
   }, [dispatch, params.login]);
 
   const {
@@ -31,7 +30,7 @@ const User = () => {
     type,
     avatar_url,
     location,
-    bio,  
+    bio,
     blog,
     twitter_username,
     login,
@@ -69,7 +68,7 @@ const User = () => {
           <div className="col-span-2">
             <div className="mb-6">
               <h1 className="text-3xl card-title">
-                {name}{" "}
+                {name}
                 <div className="ml-2 mr-1 badge badge-success">{type}</div>
                 {hireable && (
                   <div className="mx-1 badge badge-info">Hireable</div>
@@ -98,13 +97,11 @@ const User = () => {
                 <div className="stat">
                   <div className="stat-title text-md">Website</div>
                   <div className="text-lg stat-value">
-                    {" "}
                     <a
                       href={`https://${blog}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {" "}
                       {blog}
                     </a>
                   </div>
@@ -114,13 +111,12 @@ const User = () => {
                 <div className="stat">
                   <div className="stat-title text-md">Twitter</div>
                   <div className="text-lg stat-value">
-                    {" "}
                     <a
                       href={`https://twitter.com/${twitter_username}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaTwitter style={{ display: "inline" }} />{" "}
+                      <FaTwitter style={{ display: "inline" }} />
                       {twitter_username}
                     </a>
                   </div>
@@ -156,19 +152,18 @@ const User = () => {
             <div className="stat-value pr-5 text-3xl md:text-5xl">
               {public_repos}
             </div>
-            
           </div>
           <div className="stat">
-              <div className="stat-figure text-secondary">
-                <FaStore className="text-3xl md:text-5xl" />
-              </div>
-              <div className="stat-title pr-5">Public Gists</div>
-              <div className="stat-value pr-5 text-3xl md:text-5xl">
-                {public_gists}
-              </div>
+            <div className="stat-figure text-secondary">
+              <FaStore className="text-3xl md:text-5xl" />
             </div>
+            <div className="stat-title pr-5">Public Gists</div>
+            <div className="stat-value pr-5 text-3xl md:text-5xl">
+              {public_gists}
+            </div>
+          </div>
         </div>
-          <RepoList repos={repos} />
+        <RepoList repos={repos} />
       </div>
     </>
   );

@@ -65,7 +65,6 @@ const FeedbackForm = () => {
           }}
         />
         <div className="input-group">
-          {" "}
           <input
             type="text"
             onChange={handleTextChange}
