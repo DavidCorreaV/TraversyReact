@@ -13,6 +13,7 @@ import Category from "./pages/Category";
 
 import Navbar from "./components/Navbar";
 import CreateListing from "./pages/CreateListing";
+import EditListing from "./pages/EditListing";
 import Listing from "./pages/Listing";
 import Contact from "./pages/Contact";
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/create-listing" element={<CreateListing />} />
+          <Route path="/edit-listing/:listingId" element={<EditListing />} />
           <Route
             path="/category/:categoryName/:listingId"
             element={<Listing />}
