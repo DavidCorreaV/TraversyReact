@@ -38,6 +38,9 @@ const Slider = () => {
     return <Spinner />;
   }
 
+  if (listing.length === 0) {
+    return <></>;
+  }
   return (
     listing && (
       <>

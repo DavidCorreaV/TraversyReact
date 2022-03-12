@@ -142,7 +142,7 @@ const Profile = () => {
                 <ListingItem
                   listing={listing.data}
                   key={listing.id}
-                  idea={listing.id}
+                  id={listing.id}
                   onDelete={() => onDelete(listing.id)}
                   onEdit={() => onEdit(listing.id)}
                 />

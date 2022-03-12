@@ -98,9 +98,9 @@ const Listing = () => {
               : `1 Bedroom`}
           </li>
           <li>
-            {listing.bathroom > 1
-              ? `${listing.bathroom} Bedrooms`
-              : `1 Bedroom`}
+            {listing.bathrooms > 1
+              ? `${listing.bathrooms} Bathrooms`
+              : `1 Bathroom`}
           </li>
           <li>{listing.parking && "Parking Spot"}</li>
           <li>{listing.furnished && "Property Furnished"}</li>

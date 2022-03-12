@@ -3,14 +3,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
-import {
-  doc,
-  updateDoc,
-  getDoc,
-  addDoc,
-  collection,
-  serverTimestamp,
-} from "firebase/firestore";
+import { doc, updateDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
 import {
   getStorage,
@@ -68,6 +61,7 @@ const EditListing = () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         setListing(docSnap.data());
+        setFormData({ ...docSnap.data(), address: docSnap.data().location });
         setLoading(false);
       } else {
         navigate("/");
@@ -75,7 +69,7 @@ const EditListing = () => {
       }
     };
     fetchListing();
-  }, []);
+  }, [navigate, params.listingId]);
   useEffect(() => {
     if (isMounted) {
       onAuthStateChanged(auth, (user) => {
@@ -90,6 +84,14 @@ const EditListing = () => {
       isMounted.current = false;
     };
   }, [auth, isMounted, navigate]);
+
+  useEffect(() => {
+    if (listing && listing.userRef !== auth.currentUser.uid) {
+      toast.error("You can not edit that listing");
+      navigate("/");
+    }
+  });
+
   if (loading) {
     return <Spinner />;
   }
@@ -218,7 +220,8 @@ const EditListing = () => {
     formDataCopy.location = address;
     !formDataCopy.offer && delete formDataCopy.discountedPrice;
 
-    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+    const docRef = doc(db, "listings", params.listingId);
+    await updateDoc(docRef, formDataCopy);
     setLoading(false);
     toast.success("Listing saved");
     navigate(`/category/${formDataCopy.type}/${docRef.id}`);
